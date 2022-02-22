@@ -1,89 +1,84 @@
-using namespace std;
 #include <iostream>
+#include <sstream>
+#include <fstream>
+using namespace std;
 
-float MinElement (int array[])
+
+float MinElement (int* array, int arraySize)
 {
-    int size = sizeof(array)/sizeof(array[0]);
-    int maxElement = 0;
-    for(int i = 0; i < size; i++)
+    float minElement = array[0];
+    for(int i = 0; i < arraySize; i++)
     {
-        if(array[i] < array[i + 1])
-            maxElement = array[i];
-        else
-            maxElement = array[i + 1];
+        if(minElement > array[i])
+            minElement = array[i];
     }
 
     return minElement;
 }
 
-int MaxElement (int array[])
+float MinElementIndex (int* array, int arraySize)
 {
-    int size = sizeof(array)/sizeof(array[0]);
-    int maxElement = 0;
-    for(int i = 0; i < size; i++)
+    float minElementIndex = 0;
+    for(int i = 0; i < arraySize; i++)
     {
-        if(array[i] < array[i + 1])
-            maxElement = array[i + 1];
-        else
-            maxElement = array[i];
-    }
-
-    return maxElement;
-}
-
-float MinElementIndex (int array[])
-{
-    int size = sizeof(array)/sizeof(array[0]);
-    int minElementIndex = 0;
-    for(int i = 0; i < size; i++)
-    {
-        if(array[i] < array[i + 1])
+        if(minElementIndex > array[i])
             minElementIndex = i;
-        else
-            minElementIndex = i + 1;
     }
 
     return minElementIndex;
 }
 
-float MaxElementIndex (int array[])
+float MaxElement (int* array, int arraySize)
 {
-        int size = sizeof(array)/sizeof(array[0]);
-    int maxElementIndex = 0;
-    for(int i = 0; i < size; i++)
+    float minElement = array[0];
+    for(int i = 0; i < arraySize; i++)
     {
-        if(array[i] < array[i + 1])
-            maxElementIndex = i + 1;
-        else
+        if(minElement < array[i])
+            minElement = array[i];
+    }
+
+    return minElement;
+}
+
+float MaxElementIndex (int* array, int arraySize)
+{
+    float maxElementIndex = 0;
+    for(int i = 0; i < arraySize; i++)
+    {
+        if(maxElementIndex < array[i])
             maxElementIndex = i;
     }
 
     return maxElementIndex;
 }
-
-float* CreateArray(ifstream& F, float** array)
+/*
+float CreateArray(ifstream& F, float array)
 {
     float plug;
     int size = sizeof(array)/sizeof(array[0]);
-    for (size_t i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
+    {
         if (!F.eof())
         {
             F >> plug;
-            F >> *(*array + i);
+            F >> (array + i);
         }
+    }
 
-    return *array;
+    return array;
 }
-
+*/
 int main()
 {
-    ifstream File = "Result.txt";
-    float* array[];
-    array = CreateArray(F, &array);
-    cout << "Min element is:\t" << MinElement(array) << endl;
-    cout << "Min element index is:\t" << MinElementIndex(array) << endl;
-    cout << "Max element is:\t" << MaxElement(array) << endl;
-    cout << "Max element index is:\t" << MaxElementIndex(array) << endl;
+    //ifstream File = "Result.txt";
+    //float array[];
+    //array = CreateArray(F, array);
+    int size = 8;
+    int array[size] = {-8, 1, 2, 3, 14, -15, 3, 2};
+    cout << "Min element is:\t" << MinElement(array, size) << endl;
+    cout << "Min element index is:\t" << MinElementIndex(array, size) << endl;
+    cout << "Max element is:\t" << MaxElement(array, size) << endl;
+    cout << "Max element index is:\t" << MaxElementIndex(array, size) << endl;
 
     return 0;
 }
